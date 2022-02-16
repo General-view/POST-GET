@@ -1,12 +1,99 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>POST & GET tester</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <style>
+        :root {
+            --main-color: #0c1628;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-size: 16px;
+            line-height: 24px;
+            font-weight: 500;
+            background-color: #ffffff;
+            color: var(--main-color);
+        }
+
+        .section {
+            padding: 40px 0;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--main-color);
+        }
+
+        .container {
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+        }
+
+        .form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+
+        .input-group {
+            width: 60%;
+            min-width: 320px;
+            margin-bottom: 30px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 600;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px 10px;
+            border: 1px solid var(--main-color);
+            border-radius: 4px;
+        }
+
+        .submit-btn {
+            cursor: pointer;
+            padding: 10px 16px;
+            text-transform: uppercase;
+            font-weight: 600;
+            border: 1px solid var(--main-color);
+            border-radius: 4px;
+        }
+
+        .submit-btn:hover,
+        .submit-btn:focus {
+            color: #ffffff;
+            background-color: var(--main-color);
+        }
+
+        .request-data {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid var(--main-color);
+            border-radius: 10px;
+        }
+
+        .request-data h3 {
+            margin: 0 0 10px;
+        }
+    </style>
 </head>
+
 <body>
     <section class="section section_post">
         <div class="container">
@@ -24,7 +111,6 @@
             </form>
         </div>
     </section>
-
     <section class="section section_get">
         <div class="container">
             <h2 class="section-title">GET-запрос</h2>
@@ -37,7 +123,42 @@
             </form>
         </div>
     </section>
+    <script>
+        "use strict";
 
-    <script src="script.js"></script>
+        function postRequest() {
+            const form = document.getElementById("post-form"),
+                url = document.getElementById("post-address").value,
+                data = document.getElementById("post-data").value;
+            const postData = async () => {
+                let result = await fetch(url, {
+                    method: "POST",
+                    body: data,
+                }).then((res) => console.log(res));
+                return result;
+            };
+            form.addEventListener("submit", (evt) => {
+                evt.preventDefault();
+                postData();
+            });
+        }
+        postRequest();
+
+        function getRequest() {
+            const form = document.getElementById("get-form"),
+                url = document.getElementById("get-address").value;
+            const getData = async () => {
+                let result = await fetch(url, {
+                    method: "GET"
+                }).then((res) => console.log(res));
+                return result;
+            };
+            form.addEventListener("submit", (evt) => {
+                evt.preventDefault();
+                getData();
+            });
+        }
+        getRequest();
+    </script>
 </body>
 </html>
